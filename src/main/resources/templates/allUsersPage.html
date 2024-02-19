@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+<h2>All Users</h2>
+<div>
+    <th:block th:include="menuPage">Menu</th:block>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">Id</td>
+            <td th:text="${user.username}">Login</td>
+            <td th:text="${user.password}">Password</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.name}">Name</td>
+            <td th:text="${user.surname}">Surname</td>
+            <td>
+                <div th:each="role : ${user.roleSet}">
+                    <span th:if="(${role.name} == 'ROLE_ADMIN')" th:utext="Administrator"></span>
+                    <span th:if="(${role.name} == 'ROLE_USER')" th:utext="User"></span>
+                </div>
+            </td>
+            <td>
+                <form th:action="@{edit/{id}(id=${user.id})}" th:object="${user}">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{deleteUser/{id}(id=${user.id})}" th:object="${user}">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{add}">
+        <button type="submit">Add New User</button>
+    </form>
+</div>
+</body>
+</html>
