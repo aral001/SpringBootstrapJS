@@ -38,11 +38,13 @@ public class AdminController {
     }
     
     @PostMapping(value = "admin/add")
-    public String saveUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin) {
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin, @RequestParam(required = false) String roleUser) {
         Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleById(2));
         if (roleAdmin != null && roleAdmin.equals("1")) {
             roles.add(roleService.getRoleById(1));
+        }
+        if (roleUser != null && roleUser.equals("2")) {
+            roles.add(roleService.getRoleById(2));
         }
         user.setRoleSet(roles);
         userService.saveUser(user);
@@ -57,6 +59,9 @@ public class AdminController {
             if (role.equals(roleService.getRoleById(1))) {
                 modelMap.addAttribute("roleAdmin", true);
             }
+            if (role.equals(roleService.getRoleById(2))) {
+                modelMap.addAttribute("roleUser", true);
+            }
         }
         modelMap.addAttribute("user", user);
         System.out.println(user);
@@ -64,11 +69,13 @@ public class AdminController {
     }
 
     @PostMapping(value = "admin/edit")
-    public String postEditUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin) {
+    public String postEditUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin, @RequestParam(required = false) String roleUser) {
         Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleById(2));
         if (roleAdmin != null && roleAdmin.equals("1")) {
             roles.add(roleService.getRoleById(1));
+        }
+        if (roleUser != null && roleUser.equals("2")) {
+            roles.add(roleService.getRoleById(2));
         }
         user.setRoleSet(roles);
         userService.saveUser(user);

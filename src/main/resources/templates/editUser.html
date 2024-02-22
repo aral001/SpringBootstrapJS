@@ -42,6 +42,13 @@
                            th:value="1"
                            th:text="Administrator">
                 </label>
+                <label>
+                    <input type="checkbox"
+                           name="roleUser"
+                           th:checked="${roleUser}"
+                           th:value="2"
+                           th:text="User">
+                </label>
             </p>
         </fieldset>
         <button type="submit">Update Information</button>
