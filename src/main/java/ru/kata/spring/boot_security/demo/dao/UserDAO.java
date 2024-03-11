@@ -10,7 +10,7 @@ public interface UserDAO {
     public void saveUser(User user);
 
     public User getUser(int id);
-    public User getUserByUsername(String username);
+    public User getUserByEmail(String email);
 
     public void deleteUser(int id);
 }

@@ -40,9 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
         http.formLogin()
-                //.loginPage("/login")
+                .loginPage("/login")
                 .successHandler(successUserHandler)
-                .usernameParameter("j_username")
+                .usernameParameter("j_email")
                 .passwordParameter("j_password")
                 .permitAll();
         http.logout()
@@ -54,8 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user").hasAuthority("USER")
+                .antMatchers("/admin").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
 
     }

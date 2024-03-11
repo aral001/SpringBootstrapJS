@@ -15,4 +15,5 @@ public interface UserService extends UserDetailsService {
     public User getUser(int id);
 
     public void deleteUser(int id);
+
 }
