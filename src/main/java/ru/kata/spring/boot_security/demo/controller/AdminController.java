@@ -33,80 +33,12 @@ public class AdminController {
         return "allUsersPage";
     }
 
-//    @GetMapping(value = "admin/all")
-//    public String allUsers(@ModelAttribute("user") User user, Principal principal, ModelMap modelMap, @RequestParam(required = false) String roleAdmin, @RequestParam(required = false) String roleUser) {
-//        modelMap.addAttribute("user", userService.loadUserByUsername(principal.getName()));
-//        modelMap.addAttribute("users", userService.getAllUsers());
-////        modelMap.addAttribute("roles", roleService.allRoles());
-//        Set<Role> roles = new HashSet<>();
-//        if (roleAdmin != null && roleAdmin.equals("1")) {
-//            roles.add(roleService.getRoleById(1));
-//        }
-//        if (roleUser != null && roleUser.equals("2")) {
-//            roles.add(roleService.getRoleById(2));
-//        }
-//        user.setRoleSet(roles);
-//        return "x";
-//    }
-
     @PostMapping("/admin/editUser")
     public String editUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin/all";
     }
 
-//    @GetMapping(value = "admin/add")
-//    public String addUser(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//        return "addUser";
-//    }
-//
-//    @PostMapping(value = "admin/add")
-//    public String saveUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin, @RequestParam(required = false) String roleUser) {
-//        Set<Role> roles = new HashSet<>();
-//        if (roleAdmin != null && roleAdmin.equals("1")) {
-//            roles.add(roleService.getRoleById(1));
-//        }
-//        if (roleUser != null && roleUser.equals("2")) {
-//            roles.add(roleService.getRoleById(2));
-//        }
-//        user.setRoleSet(roles);
-//        userService.saveUser(user);
-//        return "redirect:/admin/all";
-//    }
-//
-//    @GetMapping(value = "admin/edit/{id}")
-//    public String editUser(ModelMap modelMap, @PathVariable("id") int id) {
-//        User user = userService.getUser(id);
-//        Set<Role> roles = new HashSet<>();
-//        for (Role role: roles) {
-//            if (role.equals(roleService.getRoleById(1))) {
-//                modelMap.addAttribute("roleAdmin", true);
-//            }
-//            if (role.equals(roleService.getRoleById(2))) {
-//                modelMap.addAttribute("roleUser", true);
-//            }
-//        }
-//        modelMap.addAttribute("user", user);
-//        System.out.println(user);
-//        return "editUser";
-//    }
-//
-//    @PostMapping(value = "admin/edit")
-//    public String postEditUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin, @RequestParam(required = false) String roleUser) {
-//        Set<Role> roles = new HashSet<>();
-//        if (roleAdmin != null && roleAdmin.equals("1")) {
-//            roles.add(roleService.getRoleById(1));
-//        }
-//        if (roleUser != null && roleUser.equals("2")) {
-//            roles.add(roleService.getRoleById(2));
-//        }
-//        user.setRoleSet(roles);
-//        userService.saveUser(user);
-//        return "redirect:/admin/all";
-//    }
-//
     @GetMapping("/admin/deleteUser")
     public String deleteUser(@RequestParam("userId") int id) {
         userService.deleteUser(id);

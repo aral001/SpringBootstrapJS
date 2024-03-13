@@ -29,16 +29,6 @@
         <a class="nav-link active" id="v-pills-admin-tab" data-toggle="pill" href="#v-pills-admin" role="tab" aria-controls="v-pills-admin" aria-selected="true">Admin</a>
         <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="false">User</a>
     </div>
-
-<!--<div class="container-fluid">-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-2" style="margin-top: 15px">-->
-<!--            <th:block th:include="menuPage">Menu</th:block>-->
-<!--        </div>-->
-
-<!--        <div class="col-md-10" style="background-color: rgba(21,44,51,0.13); background-size: 100%; height: 1170px; min-width: 1366px">-->
-<!--            <div style="margin-top: 15px">-->
-<!--            <h2 class="font-weight-bold">Admin panel</h2>-->
         <div class="tab-content bg-light container-fluid h-100 d-inline-block" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel">
                 <div class="container-fluid" style="height:1000px">
@@ -80,8 +70,7 @@
                                 <td th:utext="${user.email}">Email</td>
                                 <td>
                                     <div th:each="role : ${user.roleSet}">
-                                        <span th:if="(${role.name} == 'ADMIN')" th:utext="ADMIN"></span>
-                                        <span th:if="(${role.name} == 'USER')" th:utext="USER"></span>
+                                        <span th:text="${role.authority}"></span>
                                     </div>
                                 </td>
 
@@ -142,19 +131,11 @@
                                                         <div class="row justify-content-center">
                                                             <div class="col-6">
                                                                 <div class="form-group">
-                                                                        <select class="custom-select" multiple size="2" required>
-    <!--                                                                        <option th:checked="roleAdmin"-->
-    <!--                                                                                th:value="1"-->
-    <!--                                                                                th:utext="ADMIN">-->
-    <!--                                                                        </option>-->
-    <!--                                                                        <option th:checked="roleUser"-->
-    <!--                                                                                th:value="2"-->
-    <!--                                                                                th:utext="USER">-->
-    <!--                                                                        </option>-->
-                                                                            <option th:each="role : ${allRoles}"
-                                                                                    th:value="${role.id}"
-                                                                                    th:text="${role.name}"></option>
-                                                                        </select>
+                                                                    <select multiple size="2" name="roles" class="form-control">
+                                                                        <option th:each="role: ${allRoles}"
+                                                                        th:value="${role.id}"
+                                                                        th:text="${role.authority}"></option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -219,14 +200,6 @@
                                                     <div class="col-6">
                                                         <label>
                                                             <select class="form-select from-select-sm" multiple size="2" disabled>
-    <!--                                                            <option th:checked="roleAdmin"-->
-    <!--                                                                    th:value="1"-->
-    <!--                                                                    th:utext="ADMIN">-->
-    <!--                                                            </option>-->
-    <!--                                                            <option th:checked="roleUser"-->
-    <!--                                                                    th:value="2"-->
-    <!--                                                                    th:utext="USER">-->
-    <!--                                                            </option>-->
                                                                 <option th:each="role : ${allRoles}"
                                                                         th:value="${role.id}"
                                                                         th:text="${role.name}"></option>
@@ -307,14 +280,6 @@
                                         <div class="col-3">
                                             <label>
                                                 <select class="form-select from-select-sm" multiple size="2">
-<!--                                                    <option th:checked="roleAdmin"-->
-<!--                                                            th:value="1"-->
-<!--                                                            th:utext="ADMIN">-->
-<!--                                                    </option>-->
-<!--                                                    <option th:checked="roleUser"-->
-<!--                                                            th:value="2"-->
-<!--                                                            th:utext="USER">-->
-<!--                                                    </option>-->
                                                     <option th:each="role : ${allRoles}"
                                                             th:value="${role.id}"
                                                             th:text="${role.name}"></option>
