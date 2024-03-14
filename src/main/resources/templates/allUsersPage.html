@@ -69,7 +69,7 @@
                                 <td th:utext="${user.age}">Age</td>
                                 <td th:utext="${user.email}">Email</td>
                                 <td>
-                                    <div th:each="role : ${user.roleSet}">
+                                    <div th:each="role : ${user.roles}">
                                         <span th:text="${role.authority}"></span>
                                     </div>
                                 </td>
@@ -127,18 +127,28 @@
                                                             </div>
                                                         </div>
                                                         <br>
-                                                        <h5><b>Role</b></h5>
                                                         <div class="row justify-content-center">
                                                             <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <select multiple size="2" name="roles" class="form-control">
-                                                                        <option th:each="role: ${allRoles}"
-                                                                        th:value="${role.id}"
-                                                                        th:text="${role.authority}"></option>
-                                                                    </select>
-                                                                </div>
+                                                                <label class="control-label">User's Role:</label>
+                                                                <select multiple size="3" type="role" name="editUserRoleId" class="form-control">
+                                                                    <option selected="selected" th:value="0">---</option>
+                                                                    <option th:value="1">ADMIN</option>
+                                                                    <option th:value="2">USER</option>
+                                                                </select>
                                                             </div>
                                                         </div>
+<!--                                                        <h5><b>Role</b></h5>-->
+<!--                                                        <div class="row justify-content-center">-->
+<!--                                                            <div class="col-6">-->
+<!--                                                                <div class="form-group">-->
+<!--                                                                    <select multiple size="2" name="roles" class="form-control">-->
+<!--                                                                        <option th:each="role: ${allRoles}"-->
+<!--                                                                        th:value="${role.id}"-->
+<!--                                                                        th:text="${role.authority}"></option>-->
+<!--                                                                    </select>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
                                                     </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -275,16 +285,13 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <h5><b>Role</b></h5>
                                     <div class="row justify-content-center">
                                         <div class="col-3">
-                                            <label>
-                                                <select class="form-select from-select-sm" multiple size="2">
-                                                    <option th:each="role : ${allRoles}"
-                                                            th:value="${role.id}"
-                                                            th:text="${role.name}"></option>
+                                                <label class="control-label">User's Role:</label>
+                                                <select multiple size="2" name="newUserRoleId" class="form-control">
+                                                    <option th:value="1">ADMIN</option>
+                                                    <option selected="selected" th:value="2">USER</option>
                                                 </select>
-                                            </label>
                                         </div>
                                     </div>
                                     <br>

@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -50,12 +50,12 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public Set<Role> getRoleSet() {
-        return roleSet;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoleSet(Set<Role> roleSet) {
-        this.roleSet = roleSet;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -83,7 +83,7 @@ public class User implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoleSet();
+        return getRoles();
     }
 
     public String getPassword() {
@@ -131,12 +131,12 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(roleSet, user.roleSet);
+        return id == user.id && age == user.age && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, name, surname, age, email, roleSet);
+        return Objects.hash(id, password, name, surname, age, email, roles);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class User implements UserDetails {
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
-                ", roleSet=" + roleSet +
+                ", roleSet=" + roles +
                 '}';
     }
 }

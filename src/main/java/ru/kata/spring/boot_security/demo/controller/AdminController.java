@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -34,7 +35,10 @@ public class AdminController {
     }
 
     @PostMapping("/admin/editUser")
-    public String editUser(@ModelAttribute("user") User user) {
+    public String editUser(@ModelAttribute("user") User user, @RequestParam("editUserRoleId") int editUserRoleId) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getRoleById(editUserRoleId));
+        user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/admin/all";
     }
@@ -46,7 +50,10 @@ public class AdminController {
     }
 
     @PostMapping("/admin/saveUser")
-    public String saveUser(@ModelAttribute("newUser") User user) {
+    public String saveUser(@ModelAttribute("newUser") User user, @RequestParam("newUserRoleId") int newUserRoleId) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getRoleById(newUserRoleId));
+        user.setRoles(roles);
         userService.saveUser(user);
 
         return "redirect:/admin/all";

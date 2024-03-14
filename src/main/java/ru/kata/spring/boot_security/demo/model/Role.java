@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany(mappedBy = "roleSet")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> userSet;
 
     public Role() {
