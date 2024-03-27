@@ -1,7 +1,15 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
@@ -15,48 +23,42 @@ public class MyRESTController {
     private final UserService userService;
 
     private final RoleService roleService;
-    @Autowired
     public MyRESTController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping("/users")
-    public List<User> showAllUsers() {
+    public ResponseEntity<List<User>> showAllUsers() {
         System.out.println(userService.getAllUsers());
-        return userService.getAllUsers();
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
-        return userService.getUser(id);
+    public ResponseEntity<User> getUser(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getUser(id));
     }
 
     @PostMapping("/users")
-    public User addNewUser(@RequestBody User user) {
+    public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return ResponseEntity.ok(userService.getUser(user.getId()));
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return ResponseEntity.ok(userService.getUser(user.getId()));
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable int id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
-        return "User with ID = " + id + " was deleted";
-    }
-
-    @GetMapping("/roles/{role}")
-    public Role getRole(@PathVariable String role) {
-        return roleService.getRoleByName(role);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/roles")
-    public List<Role> allRoles() {
-        return roleService.allRoles();
+    public ResponseEntity<List<Role>> allRoles() {
+        return ResponseEntity.ok(roleService.allRoles());
     }
 }
